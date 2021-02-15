@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myhttpapppython
+spec:
+  selector:
+    matchLabels:
+      app: app1
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: app1
+    spec:
+      containers:
+      - name: app1
+        image: iyadomry/pyhttp
+        ports:
+        - containerPort: 8060

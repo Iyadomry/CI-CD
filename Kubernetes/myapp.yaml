@@ -1,19 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapprep
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: myapprep
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myhttpapppython
+  name: myapprep
 spec:
   selector:
     matchLabels:
-      app: app1
-  replicas: 2 # tells deployment to run 2 pods matching the template
+      app: myapprep
+  replicas: 1 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
-        app: app1
+        app: myapprep
     spec:
       containers:
-      - name: app1
-        image: iyadomry/pyhttp
+      - name: myapp
+        image: iyadomry/helloworld
         ports:
-        - containerPort: 8060
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-myapp
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: myapprep
